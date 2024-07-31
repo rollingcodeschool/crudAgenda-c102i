@@ -1,3 +1,5 @@
+import { v4 as uid} from "https://jspm.dev/uuid";
+
 export default class Contacto{
     #id;
     #nombre;
@@ -7,7 +9,7 @@ export default class Contacto{
     #celular;
     #email;
     #foto
-    constructor(id ,nombre, apellido, apodo, direccion, celular, email, foto){
+    constructor(id = uid() ,nombre, apellido, apodo, direccion, celular, email, foto){
         this.#id= id;
         this.#nombre= nombre;
         this.#apellido = apellido;
