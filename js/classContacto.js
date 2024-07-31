@@ -1,4 +1,4 @@
-class Contacto{
+export default class Contacto{
     #id;
     #nombre;
     #apellido;
@@ -22,3 +22,5 @@ class Contacto{
 
     // agregar los metodos necesarios
 }
+
+// export const prueba = 'desde el archivo classContacto'
