@@ -72,8 +72,8 @@ const dibujarFila = (contacto)=>{
                 <td>${contacto.id}</td>
                 <td>${contacto.nombre}</td>
                 <td>${contacto.apellido}</td>
-                <td>rosario@mail.com</td>
-                <td>3815556644</td>
+                <td>${contacto.email}</td>
+                <td>${contacto.celular}</td>
                 <td>
                   <button class="btn btn-warning">Editar</button>
                   <button class="btn btn-danger">Borrar</button>
