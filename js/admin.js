@@ -15,6 +15,8 @@ const email = document.querySelector("#email"),
 const foto = document.querySelector("#foto");
 const direccion = document.querySelector("#direccion");
 const listaContactos = JSON.parse(localStorage.getItem('agendaKey')) || [];
+const tbody = document.querySelector('tbody');
+console.log(tbody);
 
 //funciones
 const mostrarModal = () => {
@@ -56,6 +58,33 @@ const editarContacto = () => {
   console.log("desde la funcion editar contacto");
 };
 
+const cargaInicialTablaContactos = ()=>{
+    //cargar los datos en la tabla
+    if(listaContactos.length !== 0){
+        //dibujar una fila
+        listaContactos.map((contacto)=> dibujarFila(contacto))
+    }
+}
+
+const dibujarFila = (contacto)=>{
+    // tbody.innerHTML = tbody.innerHTML + ''
+     tbody.innerHTML += ` <tr>
+                <td>${contacto.id}</td>
+                <td>${contacto.nombre}</td>
+                <td>${contacto.apellido}</td>
+                <td>rosario@mail.com</td>
+                <td>3815556644</td>
+                <td>
+                  <button class="btn btn-warning">Editar</button>
+                  <button class="btn btn-danger">Borrar</button>
+                  <button class="btn btn-info">Ver</button>
+                </td>
+              </tr>
+     `
+}
+
 //agregar los manejadores de eventos
 btnAgregarContacto.addEventListener("click", mostrarModal);
 formRegistrarContacto.addEventListener("submit", crearContacto);
+
+cargaInicialTablaContactos();
