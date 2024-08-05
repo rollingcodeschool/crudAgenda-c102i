@@ -14,7 +14,7 @@ const email = document.querySelector("#email"),
   celular = document.querySelector("#celular");
 const foto = document.querySelector("#foto");
 const direccion = document.querySelector("#direccion");
-const listaContactos = [];
+const listaContactos = JSON.parse(localStorage.getItem('agendaKey')) || [];
 
 //funciones
 const mostrarModal = () => {
@@ -40,12 +40,17 @@ const crearContacto = (e) => {
   listaContactos.push(contactoNuevo);
   console.log(listaContactos)
   limpiarFormulario();
+  //guardar array en el localstorage
+  guardarEnLocalStorage()
 };
 
 const limpiarFormulario = ()=>{
     formRegistrarContacto.reset();
 }
 
+const guardarEnLocalStorage = ()=>{
+    localStorage.setItem('agendaKey', JSON.stringify(listaContactos))
+}
 
 const editarContacto = () => {
   console.log("desde la funcion editar contacto");

@@ -97,6 +97,18 @@ export default class Contacto {
   }
 
   // agregar los metodos necesarios
+  toJSON(){
+    return {
+        id: this.id,
+        nombre: this.nombre,
+        apellido: this.apellido,
+        celular: this.celular,
+        foto: this.foto,
+        apodo: this.apodo,
+        direccion: this.direccion,
+        email: this.email
+    }
+  }
 }
 
 // export const prueba = 'desde el archivo classContacto'
