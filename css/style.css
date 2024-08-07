@@ -7,3 +7,8 @@ body{
 main{
     flex-grow: 1;
 }
+
+.card-img-top {
+    height: 200px; /* Ajusta la altura según tus necesidades */
+    object-fit: cover; /* Hace que la imagen se ajuste dentro del contenedor */
+  }
