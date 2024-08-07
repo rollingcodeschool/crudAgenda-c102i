@@ -103,6 +103,11 @@ const cargaInicialTablaContactos = () => {
   }
 };
 
+window.verContacto = (id)=>{
+  console.log(window.location)
+  window.location.href = "/pages/detalleContacto.html?id="+id;
+}
+
 const dibujarFila = (contacto) => {
   // tbody.innerHTML = tbody.innerHTML + ''
   tbody.innerHTML += ` <tr>
@@ -114,7 +119,7 @@ const dibujarFila = (contacto) => {
                 <td>
                   <button class="btn btn-warning">Editar</button>
                   <button class="btn btn-danger" onclick="borrarContacto('${contacto.id}')">Borrar</button>
-                  <button class="btn btn-info">Ver</button>
+                  <button class="btn btn-info" onclick="verContacto('${contacto.id}')" >Ver</button>
                 </td>
               </tr>
      `;
