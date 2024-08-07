@@ -14,8 +14,8 @@ const email = document.querySelector("#email"),
   celular = document.querySelector("#celular");
 const foto = document.querySelector("#foto");
 const direccion = document.querySelector("#direccion");
-const listaContactos = JSON.parse(localStorage.getItem('agendaKey')) || [];
-const tbody = document.querySelector('tbody');
+const listaContactos = JSON.parse(localStorage.getItem("agendaKey")) || [];
+const tbody = document.querySelector("tbody");
 console.log(tbody);
 
 //funciones
@@ -37,38 +37,75 @@ const crearContacto = (e) => {
     email.value,
     foto.value
   );
-  console.log(contactoNuevo)
+  console.log(contactoNuevo);
   //agregar el contacto al array
   listaContactos.push(contactoNuevo);
-  console.log(listaContactos)
+  console.log(listaContactos);
   limpiarFormulario();
   //guardar array en el localstorage
-  guardarEnLocalStorage()
+  guardarEnLocalStorage();
 };
 
-const limpiarFormulario = ()=>{
-    formRegistrarContacto.reset();
-}
+const limpiarFormulario = () => {
+  formRegistrarContacto.reset();
+};
 
-const guardarEnLocalStorage = ()=>{
-    localStorage.setItem('agendaKey', JSON.stringify(listaContactos))
-}
+const guardarEnLocalStorage = () => {
+  localStorage.setItem("agendaKey", JSON.stringify(listaContactos));
+};
 
 const editarContacto = () => {
   console.log("desde la funcion editar contacto");
 };
 
-const cargaInicialTablaContactos = ()=>{
-    //cargar los datos en la tabla
-    if(listaContactos.length !== 0){
-        //dibujar una fila
-        listaContactos.map((contacto)=> dibujarFila(contacto))
-    }
-}
+window.borrarContacto = (id) => {
+  Swal.fire({
+    title: "¿Esta seguro de borrar el contacto?",
+    text: "No puedes revertir posteriormente este proceso",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#7066E0",
+    confirmButtonText: "Borrar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    console.log(result);
+    if (result.isConfirmed) {
+      //agregar la logica para borrar
+      console.log(id);
+      // 1- buscar en que posicion del array esta el objeto que tiene el id
+      const posicionContacto = listaContactos.findIndex(
+        (contacto) => contacto.id === id
+      );
+      console.log(posicionContacto);
+      // 2 - borrar el elemento de la posicion encontrada
+      listaContactos.splice(posicionContacto, 1);
+      // 3 - actualizar el localstorage
+      guardarEnLocalStorage();
+      //actualizar la tabla de contactos
+      console.log(tbody.children[posicionContacto]);
+      tbody.removeChild(tbody.children[posicionContacto]);
 
-const dibujarFila = (contacto)=>{
-    // tbody.innerHTML = tbody.innerHTML + ''
-     tbody.innerHTML += ` <tr>
+      Swal.fire({
+        title: "Contacto borrado",
+        text: "El contacto seleccionado fue eliminado correctamente",
+        icon: "success",
+      });
+    }
+  });
+};
+
+const cargaInicialTablaContactos = () => {
+  //cargar los datos en la tabla
+  if (listaContactos.length !== 0) {
+    //dibujar una fila
+    listaContactos.map((contacto) => dibujarFila(contacto));
+  }
+};
+
+const dibujarFila = (contacto) => {
+  // tbody.innerHTML = tbody.innerHTML + ''
+  tbody.innerHTML += ` <tr>
                 <td>${contacto.id}</td>
                 <td>${contacto.nombre}</td>
                 <td>${contacto.apellido}</td>
@@ -76,12 +113,12 @@ const dibujarFila = (contacto)=>{
                 <td>${contacto.celular}</td>
                 <td>
                   <button class="btn btn-warning">Editar</button>
-                  <button class="btn btn-danger">Borrar</button>
+                  <button class="btn btn-danger" onclick="borrarContacto('${contacto.id}')">Borrar</button>
                   <button class="btn btn-info">Ver</button>
                 </td>
               </tr>
-     `
-}
+     `;
+};
 
 //agregar los manejadores de eventos
 btnAgregarContacto.addEventListener("click", mostrarModal);
