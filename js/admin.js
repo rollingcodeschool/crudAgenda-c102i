@@ -1,4 +1,5 @@
 import Contacto from "./classContacto.js";
+import { validarCantidadCaracteres, validarEmail } from "./validaciones.js";
 
 // crear variables
 
@@ -27,27 +28,38 @@ const crearContacto = (e) => {
   e.preventDefault();
   // crear un contacto
   //validar los datos del formulario
-  const contactoNuevo = new Contacto(
-    undefined,
-    nombre.value,
-    apellido.value,
-    apodo.value,
-    direccion.value,
-    celular.value,
-    email.value,
-    foto.value
-  );
-  console.log(contactoNuevo);
-  //agregar el contacto al array
-  listaContactos.push(contactoNuevo);
-  console.log(listaContactos);
-  limpiarFormulario();
-  //guardar array en el localstorage
-  guardarEnLocalStorage();
+  if(validarCantidadCaracteres(nombre,3,50) && validarCantidadCaracteres(apellido,3,30) && validarEmail(email)){
+    //los datos son validos 
+    const contactoNuevo = new Contacto(
+      undefined,
+      nombre.value,
+      apellido.value,
+      apodo.value,
+      direccion.value,
+      celular.value,
+      email.value,
+      foto.value
+    );
+    console.log(contactoNuevo);
+    //agregar el contacto al array
+    listaContactos.push(contactoNuevo);
+    console.log(listaContactos);
+    limpiarFormulario();
+    //guardar array en el localstorage
+    guardarEnLocalStorage();
+    //dibuja la nueva fila
+    dibujarFila(contactoNuevo);
+  }else{
+    console.log('hay errores en la carga')
+  }
+
 };
 
 const limpiarFormulario = () => {
   formRegistrarContacto.reset();
+  //agregar el resetear el style del input
+  // asignarle form-control
+  nombre.className = 'form-control';
 };
 
 const guardarEnLocalStorage = () => {
