@@ -1,5 +1,5 @@
 import Contacto from "./classContacto.js";
-import { validarCantidadCaracteres } from "./validaciones.js";
+import { validarCantidadCaracteres, validarEmail } from "./validaciones.js";
 
 // crear variables
 
@@ -28,7 +28,7 @@ const crearContacto = (e) => {
   e.preventDefault();
   // crear un contacto
   //validar los datos del formulario
-  if(validarCantidadCaracteres(nombre,3,50) && validarCantidadCaracteres(apellido,3,30)){
+  if(validarCantidadCaracteres(nombre,3,50) && validarCantidadCaracteres(apellido,3,30) && validarEmail(email)){
     //los datos son validos 
     const contactoNuevo = new Contacto(
       undefined,
